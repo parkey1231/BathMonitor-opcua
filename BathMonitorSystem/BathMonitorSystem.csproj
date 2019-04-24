@@ -348,6 +348,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -372,6 +373,37 @@
       <Project>{08350714-FFF0-4AD9-9170-D69913A5846E}</Project>
       <Name>MyControl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="img\Activity_16xLG.png" />
+    <Content Include="img\brackets_Square_16xMD.png" />
+    <Content Include="img\ClassIcon.ico" />
+    <Content Include="img\ClassIcon.png" />
+    <Content Include="img\Class_489.png" />
+    <Content Include="img\Cloud_16xLG.png" />
+    <Content Include="img\Copy_6524.png" />
+    <Content Include="img\Delegate_8339.png" />
+    <Content Include="img\docview_xaml_on_16x16.png" />
+    <Content Include="img\Enum_582.png" />
+    <Content Include="img\Event_594.png" />
+    <Content Include="img\Event_594_exp.png" />
+    <Content Include="img\glasses_16xLG.png" />
+    <Content Include="img\grid_Data_16xLG.png" />
+    <Content Include="img\lightningBolt_16xLG.png" />
+    <Content Include="img\ListView_687.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\Method_636.png" />
+    <Content Include="img\Module_648.png" />
+    <Content Include="img\RegistryEditor_5838.ico" />
+    <Content Include="img\SingleMessage_5727.ico" />
+    <Content Include="img\Structure_507.png" />
+    <Content Include="img\Table_748.png" />
+    <Content Include="img\Tag_7213.png" />
+    <Content Include="img\usbcontroller.png" />
+    <Content Include="img\UserInterfaceEditor_5845.ico" />
+    <Content Include="img\VirtualMachine.png" />
+    <Content Include="img\WindowsForm_817.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
