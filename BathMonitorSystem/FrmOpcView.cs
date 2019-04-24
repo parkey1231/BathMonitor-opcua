@@ -134,10 +134,10 @@ namespace BathMonitorSystem
         /// <summary>
         /// 初始化
         /// </summary>
-        private async void OpcUaClientInitialization()
+        private  void OpcUaClientInitialization()
         {
-            CommonMethods.opcUaClient = new OpcUaClient();
-            await CommonMethods.opcUaClient.ConnectServer("opc.tcp://118.24.36.220:62547/DataAccessServer");
+            //CommonMethods.opcUaClient = new OpcUaClient();
+            //await CommonMethods.opcUaClient.ConnectServer("opc.tcp://118.24.36.220:62547/DataAccessServer");
            
             CommonMethods.opcUaClient.OpcStatusChange += M_OpcUaClient_OpcStatusChange1;
             CommonMethods.opcUaClient.ConnectComplete += M_OpcUaClient_ConnectComplete;

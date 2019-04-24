@@ -45,15 +45,15 @@ namespace BathMonitorSystem
             //    }
 
             //}
-            //InitOpcUaClient();
+            InitOpcUaClient();
 
         }
 
-        //private async void InitOpcUaClient()
-        //{
-        //    CommonMethods.opcUaClient = new OpcUaClient();
-        //    await CommonMethods.opcUaClient.ConnectServer("opc.tcp://118.24.36.220:62547/DataAccessServer");
-        //}
+        private async void InitOpcUaClient()
+        {
+            CommonMethods.opcUaClient = new OpcUaClient();
+            await CommonMethods.opcUaClient.ConnectServer("opc.tcp://118.24.36.220:62547/DataAccessServer");
+        }
 
 
 
