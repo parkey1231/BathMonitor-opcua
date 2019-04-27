@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel_top = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@
             this.panel_Left = new System.Windows.Forms.Panel();
             this.btnSysMaintenance = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnOPC = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnTrend = new System.Windows.Forms.Button();
             this.btnAlarm = new System.Windows.Forms.Button();
@@ -50,7 +52,7 @@
             this.Pannel = new System.Windows.Forms.Panel();
             this.panel_botton = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnOPC = new System.Windows.Forms.Button();
+            this.timerSysterm = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -246,6 +248,19 @@
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // btnOPC
+            // 
+            this.btnOPC.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnOPC.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOPC.ForeColor = System.Drawing.Color.White;
+            this.btnOPC.Location = new System.Drawing.Point(12, 365);
+            this.btnOPC.Name = "btnOPC";
+            this.btnOPC.Size = new System.Drawing.Size(146, 50);
+            this.btnOPC.TabIndex = 0;
+            this.btnOPC.Text = "OPC 数据";
+            this.btnOPC.UseVisualStyleBackColor = false;
+            this.btnOPC.Click += new System.EventHandler(this.btnOPC_Click);
+            // 
             // btnReport
             // 
             this.btnReport.BackColor = System.Drawing.SystemColors.Highlight;
@@ -355,18 +370,9 @@
             this.label5.Text = "楚天科技股份有限公司";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnOPC
+            // timerSysterm
             // 
-            this.btnOPC.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnOPC.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOPC.ForeColor = System.Drawing.Color.White;
-            this.btnOPC.Location = new System.Drawing.Point(12, 365);
-            this.btnOPC.Name = "btnOPC";
-            this.btnOPC.Size = new System.Drawing.Size(146, 50);
-            this.btnOPC.TabIndex = 0;
-            this.btnOPC.Text = "OPC 数据";
-            this.btnOPC.UseVisualStyleBackColor = false;
-            this.btnOPC.Click += new System.EventHandler(this.btnOPC_Click);
+            this.timerSysterm.Tick += new System.EventHandler(this.timerSysterm_Tick);
             // 
             // FrmMain
             // 
@@ -423,6 +429,7 @@
         private System.Windows.Forms.Button btnSysMaintenance;
         private System.Windows.Forms.Button btnCtrlProcess;
         private System.Windows.Forms.Button btnOPC;
+        private System.Windows.Forms.Timer timerSysterm;
     }
 }
 

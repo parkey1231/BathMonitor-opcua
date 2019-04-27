@@ -47,7 +47,6 @@
             this.label_time_spend = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -55,14 +54,10 @@
             // 
             // BrowseNodesTV
             // 
-            this.BrowseNodesTV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.BrowseNodesTV.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BrowseNodesTV.Location = new System.Drawing.Point(12, 98);
             this.BrowseNodesTV.Name = "BrowseNodesTV";
-            this.BrowseNodesTV.ShowLines = false;
-            this.BrowseNodesTV.Size = new System.Drawing.Size(346, 315);
+            this.BrowseNodesTV.Size = new System.Drawing.Size(434, 487);
             this.BrowseNodesTV.TabIndex = 1;
             this.BrowseNodesTV.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.BrowseNodesTV_BeforeExpand);
             this.BrowseNodesTV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrowseNodesTV_AfterSelect);
@@ -75,9 +70,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel_opc});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 600);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1183, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -113,17 +108,17 @@
             // 
             this.textBox_nodeId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_nodeId.Location = new System.Drawing.Point(255, 47);
+            this.textBox_nodeId.Location = new System.Drawing.Point(556, 47);
             this.textBox_nodeId.Name = "textBox_nodeId";
             this.textBox_nodeId.ReadOnly = true;
-            this.textBox_nodeId.Size = new System.Drawing.Size(446, 21);
+            this.textBox_nodeId.Size = new System.Drawing.Size(528, 21);
             this.textBox_nodeId.TabIndex = 8;
             // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(205, 79);
+            this.checkBox1.Location = new System.Drawing.Point(452, 52);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(90, 16);
             this.checkBox1.TabIndex = 9;
@@ -149,13 +144,13 @@
             this.Type,
             this.AccessLevel,
             this.Description});
-            this.dataGridView1.Location = new System.Drawing.Point(389, 98);
+            this.dataGridView1.Location = new System.Drawing.Point(452, 98);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(399, 315);
+            this.dataGridView1.Size = new System.Drawing.Size(719, 487);
             this.dataGridView1.TabIndex = 10;
             // 
             // Image
@@ -207,7 +202,7 @@
             // 
             this.label_time_spend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_time_spend.AutoSize = true;
-            this.label_time_spend.Location = new System.Drawing.Point(755, 53);
+            this.label_time_spend.Location = new System.Drawing.Point(1138, 53);
             this.label_time_spend.Name = "label_time_spend";
             this.label_time_spend.Size = new System.Drawing.Size(23, 12);
             this.label_time_spend.TabIndex = 11;
@@ -216,7 +211,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Location = new System.Drawing.Point(722, 50);
+            this.pictureBox3.Location = new System.Drawing.Point(1105, 50);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(17, 18);
             this.pictureBox3.TabIndex = 12;
@@ -225,7 +220,7 @@
             // button2
             // 
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(93, 70);
+            this.button2.Location = new System.Drawing.Point(340, 47);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(106, 25);
             this.button2.TabIndex = 13;
@@ -233,22 +228,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(12, 72);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // FrmOpcView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(1183, 622);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label_time_spend);
@@ -259,9 +243,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.BrowseNodesTV);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmOpcView";
             this.Text = "FrmOPC";
-            this.Load += new System.EventHandler(this.FrmOpcView_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -291,6 +275,5 @@
         private System.Windows.Forms.Label label_time_spend;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
     }
 }

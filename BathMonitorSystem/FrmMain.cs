@@ -32,7 +32,7 @@ namespace BathMonitorSystem
           //  MyDelegate += GetData;
 
             btnView_Click(null, null);
-
+            labCurrentUser.Text = CommonMethods.UserName;
             //for (int i = 0; i < objModbusArray.Length; i++)
             //{
             //    objModbusArray[i] = new ModTCP();
@@ -46,6 +46,7 @@ namespace BathMonitorSystem
 
             //}
             InitOpcUaClient();
+            timerSysterm.Start();
 
         }
 
@@ -295,6 +296,7 @@ namespace BathMonitorSystem
             btnAlarm.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnTrend.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnReport.BackColor = Color.FromKnownColor(KnownColor.Highlight);
+            btnOPC.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnSysMaintenance.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnExit.BackColor = Color.FromKnownColor(KnownColor.Highlight);
 
@@ -306,6 +308,7 @@ namespace BathMonitorSystem
                 case ButtonName.Alarm: btnAlarm.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.Tend: btnTrend.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.Report: btnReport.BackColor = Color.FromKnownColor(KnownColor.Green); break;
+                case ButtonName.OpcView: btnOPC.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.SysMaintenance: btnSysMaintenance.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.Exit: btnExit.BackColor = Color.FromKnownColor(KnownColor.Green); break;
 
@@ -314,6 +317,9 @@ namespace BathMonitorSystem
             }
         }
 
-
+        private void timerSysterm_Tick(object sender, EventArgs e)
+        {
+            labCurrentTime.Text = DateTime.Now.ToString();
+        }
     }
 }

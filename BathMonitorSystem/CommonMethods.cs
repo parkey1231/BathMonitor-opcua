@@ -12,5 +12,8 @@ namespace BathMonitorSystem
         public static Dictionary<int, FlowData> CurrentValue = new Dictionary<int, FlowData>();
         public static Dictionary<int, ModTCP> CurrentModbusList = new Dictionary<int, ModTCP>();
         public static OpcUaClient opcUaClient;
+        public static string UserName;
+        
+
     }
 }

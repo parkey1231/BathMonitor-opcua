@@ -1318,25 +1318,6 @@ namespace BathMonitorSystem
 
         #endregion
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // populate the browse view.
-                PopulateBranch(ObjectIds.ObjectsFolder, BrowseNodesTV.Nodes);
-                BrowseNodesTV.Enabled = true;
-            }
-            catch (Exception exception)
-            {
-                ClientUtils.HandleException(Text, exception);
-            }
-        }
-
-        private void FrmOpcView_Load(object sender, EventArgs e)
-        {
-           
-        }
-
     }
 
 
