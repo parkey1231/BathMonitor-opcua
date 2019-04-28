@@ -51,7 +51,6 @@
             this.Text = "FrmAlarm";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

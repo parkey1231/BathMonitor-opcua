@@ -16,8 +16,6 @@ using OpcUaHelper.Forms;
 //public partial class FrmOpcView : Form
 namespace BathMonitorSystem
 {
-
-
     /// <summary>
     /// 一个浏览OPC服务器节点的窗口类
     /// </summary>
@@ -30,10 +28,8 @@ namespace BathMonitorSystem
         public FrmOpcView()
         {
             InitializeComponent();
-
             Icon = ClientUtils.GetAppIcon();
             BrowseNodesTV.Enabled = false;
-
             BrowseNodesTV.ImageList = new ImageList();
             BrowseNodesTV.ImageList.Images.Add("Class_489", Properties.Resources.Class_489);
             BrowseNodesTV.ImageList.Images.Add("ClassIcon", Properties.Resources.ClassIcon);
@@ -43,35 +39,27 @@ namespace BathMonitorSystem
             BrowseNodesTV.ImageList.Images.Add("Method_636", Properties.Resources.Method_636);
             BrowseNodesTV.ImageList.Images.Add("Module_648", Properties.Resources.Module_648);
             BrowseNodesTV.ImageList.Images.Add("Loading", Properties.Resources.loading);
-
             // 判断是否允许更改
             if (!string.IsNullOrEmpty(textBox1.Text)) textBox1.ReadOnly = true;
             // Opc Ua 服务的初始化
             OpcUaClientInitialization();
         }
-
         /// <summary>
         /// 固定地址且不允许更改的实例化
         /// </summary>
         public FrmOpcView(string server)
         {
             InitializeComponent();
-
             Icon = ClientUtils.GetAppIcon();
             textBox1.Text = server;
         }
-
         #endregion
-
         #region Load Show Close
-
-
         private string GetImageKeyFromDescription(ReferenceDescription target, NodeId sourceId)
         {
             if (target.NodeClass == NodeClass.Variable)
             {
                 DataValue dataValue = CommonMethods.opcUaClient.ReadNode((NodeId)target.NodeId);
-
                 if (dataValue.WrappedValue.TypeInfo != null)
                 {
                     if (dataValue.WrappedValue.TypeInfo.ValueRank == ValueRanks.Scalar)
@@ -116,21 +104,16 @@ namespace BathMonitorSystem
                 return "ClassIcon";
             }
         }
-
         //private void FormBrowseServer_FormClosing(object sender, FormClosingEventArgs e)
         //{
         //    CommonMethods.opcUaClient.Disconnect();
         //}
-
         #endregion
-
         #region OPC UA client
-
         /// <summary>
         /// Opc客户端的核心类
         /// </summary>
        // private OpcUaClient m_OpcUaClient = null;
-
         /// <summary>
         /// 初始化
         /// </summary>
@@ -141,7 +124,6 @@ namespace BathMonitorSystem
            
             CommonMethods.opcUaClient.OpcStatusChange += M_OpcUaClient_OpcStatusChange1;
             CommonMethods.opcUaClient.ConnectComplete += M_OpcUaClient_ConnectComplete;
-
             //浏览根节点
             try
             {
@@ -156,15 +138,12 @@ namespace BathMonitorSystem
             
             //if (CommonMethods.opcUaClient != null)
             //{
-
             //    RemoveAllSubscript();
             //    if (button2.BackColor != Color.LimeGreen)
             //    {
             //        button2.BackColor = Color.LimeGreen;
             //        // 判断当前的选择
             //      //  if (string.IsNullOrEmpty(textBox_nodeId.Text)) return;
-
-
             //        ReferenceDescriptionCollection references;
             //        try
             //        {
@@ -178,7 +157,6 @@ namespace BathMonitorSystem
             //            ClientUtils.HandleException(Text, exception);
             //            return;
             //        }
-
             //        subNodeIds = new List<string>();
             //        if (references?.Count > 0)
             //        {
@@ -196,15 +174,12 @@ namespace BathMonitorSystem
             //            // 子节点没有数据的情况
             //            subNodeIds.Add(textBox_nodeId.Text);
             //        }
-
             //        CommonMethods.opcUaClient.AddSubscription("subTest", subNodeIds.ToArray(), SubCallBack);
             //    }
             //    else
             //    {
             //        button2.BackColor = SystemColors.Control;
             //    }
-
-
             //}
         }
         /// <summary>
@@ -225,7 +200,6 @@ namespace BathMonitorSystem
                 ClientUtils.HandleException(Text, exception);
             }
         }
-
         /// <summary>
         /// OPC 客户端的状态变化后的消息提醒
         /// </summary>
@@ -241,7 +215,6 @@ namespace BathMonitorSystem
                 }));
                 return;
             }
-
             if (e.Error)
             {
                 toolStripStatusLabel1.BackColor = Color.Red;
@@ -250,44 +223,34 @@ namespace BathMonitorSystem
             {
                 toolStripStatusLabel1.BackColor = SystemColors.Control;
             }
-
             toolStripStatusLabel_opc.Text = e.ToString();
         }
-
-
         private ReferenceDescriptionCollection GetReferenceDescriptionCollection(NodeId sourceId)
         {
             TaskCompletionSource<ReferenceDescriptionCollection> task = new TaskCompletionSource<ReferenceDescriptionCollection>();
-
             // find all of the components of the node.
             BrowseDescription nodeToBrowse1 = new BrowseDescription();
-
             nodeToBrowse1.NodeId = sourceId;
             nodeToBrowse1.BrowseDirection = BrowseDirection.Forward;
             nodeToBrowse1.ReferenceTypeId = ReferenceTypeIds.Aggregates;
             nodeToBrowse1.IncludeSubtypes = true;
             nodeToBrowse1.NodeClassMask = (uint)(NodeClass.Object | NodeClass.Variable | NodeClass.Method | NodeClass.ReferenceType | NodeClass.ObjectType | NodeClass.View | NodeClass.VariableType | NodeClass.DataType);
             nodeToBrowse1.ResultMask = (uint)BrowseResultMask.All;
-
             // find all nodes organized by the node.
             BrowseDescription nodeToBrowse2 = new BrowseDescription();
-
             nodeToBrowse2.NodeId = sourceId;
             nodeToBrowse2.BrowseDirection = BrowseDirection.Forward;
             nodeToBrowse2.ReferenceTypeId = ReferenceTypeIds.Organizes;
             nodeToBrowse2.IncludeSubtypes = true;
             nodeToBrowse2.NodeClassMask = (uint)(NodeClass.Object | NodeClass.Variable | NodeClass.Method | NodeClass.View | NodeClass.ReferenceType | NodeClass.ObjectType | NodeClass.VariableType | NodeClass.DataType);
             nodeToBrowse2.ResultMask = (uint)BrowseResultMask.All;
-
             BrowseDescriptionCollection nodesToBrowse = new BrowseDescriptionCollection();
             nodesToBrowse.Add(nodeToBrowse1);
             nodesToBrowse.Add(nodeToBrowse2);
-
             // fetch references from the server.
             ReferenceDescriptionCollection references = FormUtils.Browse(CommonMethods.opcUaClient.Session, nodesToBrowse, false);
             return references;
         }
-
         /// <summary>
         /// 0:NodeClass  1:Value  2:AccessLevel  3:DisplayName  4:Description
         /// </summary>
@@ -325,7 +288,6 @@ namespace BathMonitorSystem
                     AttributeId = Attributes.Description
                 });
             }
-
             // read all values.
             CommonMethods.opcUaClient.Session.Read(
                 null,
@@ -334,14 +296,10 @@ namespace BathMonitorSystem
                 nodesToRead,
                 out DataValueCollection results,
                 out DiagnosticInfoCollection diagnosticInfos);
-
             ClientBase.ValidateResponse(results, nodesToRead);
             ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToRead);
-
             return results.ToArray();
         }
-
-
         /// <summary>
         /// 读取一个节点的指定属性
         /// </summary>
@@ -352,36 +310,27 @@ namespace BathMonitorSystem
         {
             NodeId sourceId = nodeId;
             ReadValueIdCollection nodesToRead = new ReadValueIdCollection();
-
-
             ReadValueId nodeToRead = new ReadValueId();
             nodeToRead.NodeId = sourceId;
             nodeToRead.AttributeId = attribute;
             nodesToRead.Add(nodeToRead);
-
             int startOfProperties = nodesToRead.Count;
-
             // find all of the pror of the node.
             BrowseDescription nodeToBrowse1 = new BrowseDescription();
-
             nodeToBrowse1.NodeId = sourceId;
             nodeToBrowse1.BrowseDirection = BrowseDirection.Forward;
             nodeToBrowse1.ReferenceTypeId = ReferenceTypeIds.HasProperty;
             nodeToBrowse1.IncludeSubtypes = true;
             nodeToBrowse1.NodeClassMask = 0;
             nodeToBrowse1.ResultMask = (uint)BrowseResultMask.All;
-
             BrowseDescriptionCollection nodesToBrowse = new BrowseDescriptionCollection();
             nodesToBrowse.Add(nodeToBrowse1);
-
             // fetch property references from the server.
             ReferenceDescriptionCollection references = FormUtils.Browse(CommonMethods.opcUaClient.Session, nodesToBrowse, false);
-
             if (references == null)
             {
                 return null;
             }
-
             for (int ii = 0; ii < references.Count; ii++)
             {
                 // ignore external references.
@@ -389,17 +338,14 @@ namespace BathMonitorSystem
                 {
                     continue;
                 }
-
                 ReadValueId nodeToRead2 = new ReadValueId();
                 nodeToRead2.NodeId = (NodeId)references[ii].NodeId;
                 nodeToRead2.AttributeId = Attributes.Value;
                 nodesToRead.Add(nodeToRead2);
             }
-
             // read all values.
             DataValueCollection results = null;
             DiagnosticInfoCollection diagnosticInfos = null;
-
             CommonMethods.opcUaClient.Session.Read(
                 null,
                 0,
@@ -407,39 +353,27 @@ namespace BathMonitorSystem
                 nodesToRead,
                 out results,
                 out diagnosticInfos);
-
             ClientBase.ValidateResponse(results, nodesToRead);
             ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToRead);
-
             return results[0];
         }
-
         #endregion
-
         #region Menu Click Event
-
         //private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    // press exit menu button
         //    Close();
         //}
-
         //private void discoverToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    string endpointUrl = new DiscoverServerDlg().ShowDialog(CommonMethods.opcUaClient.AppConfig, null);
-
         //    if (endpointUrl != null)
         //    {
         //        textBox1.Text = endpointUrl;
         //    }
         //}
-
-
-
         #endregion
-
         #region Press Connect Click Button
-
         private async void button1_Click(object sender, EventArgs e)
         {
             // connect to server
@@ -469,11 +403,8 @@ namespace BathMonitorSystem
             }
             //  CommonMethods.opcUaClient.UserIdentity = new UserIdentity(new AnonymousIdentityToken());
         }
-
         #endregion
-
         #region 填入分支
-
         /// <summary>
         /// Populates the branch in the tree view.
         /// </summary>
@@ -495,17 +426,14 @@ namespace BathMonitorSystem
                     {
                         ReferenceDescription target = references[ii];
                         TreeNode child = new TreeNode(Utils.Format("{0}", target));
-
                         child.Tag = target;
                         string key = GetImageKeyFromDescription(target, sourceId);
                         child.ImageKey = key;
                         child.SelectedImageKey = key;
-
                         // if (target.NodeClass == NodeClass.Object || target.NodeClass == NodeClass.Unspecified || expanded)
                         // {
                         //     child.Nodes.Add(new TreeNode());
                         // }
-
                         if (!checkBox1.Checked)
                         {
                             if (GetReferenceDescriptionCollection((NodeId)target.NodeId).Count > 0)
@@ -517,28 +445,18 @@ namespace BathMonitorSystem
                         {
                             child.Nodes.Add(new TreeNode());
                         }
-
-
                         list.Add(child);
                     }
                 }
-
                 return list.ToArray();
             });
-
-
             // update the attributes display.
             // DisplayAttributes(sourceId);
             nodes.Clear();
             nodes.AddRange(listNode.ToArray());
         }
-
-
-
         #endregion
-
         #region 节点打开的时候操作
-
         private void BrowseNodesTV_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -550,18 +468,15 @@ namespace BathMonitorSystem
                 }
             }
         }
-
         private void BrowseNodesTV_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             try
             {
-
                 // check if node has already been expanded once.
                 if (e.Node.Nodes.Count != 1)
                 {
                     return;
                 }
-
                 if (e.Node.Nodes.Count > 0)
                 {
                     if (e.Node.Nodes[0].Text != String.Empty)
@@ -569,16 +484,13 @@ namespace BathMonitorSystem
                         return;
                     }
                 }
-
                 // get the source for the node.
                 ReferenceDescription reference = e.Node.Tag as ReferenceDescription;
-
                 if (reference == null || reference.NodeId.IsAbsolute)
                 {
                     e.Cancel = true;
                     return;
                 }
-
                 // populate children.
                 PopulateBranch((NodeId)reference.NodeId, e.Node.Nodes);
             }
@@ -587,9 +499,6 @@ namespace BathMonitorSystem
                 ClientUtils.HandleException(this.Text, exception);
             }
         }
-
-
-
         private void BrowseNodesTV_AfterSelect(object sender, TreeViewEventArgs e)
         {
             try
@@ -597,12 +506,10 @@ namespace BathMonitorSystem
                 RemoveAllSubscript();
                 // get the source for the node.
                 ReferenceDescription reference = e.Node.Tag as ReferenceDescription;
-
                 if (reference == null || reference.NodeId.IsAbsolute)
                 {
                     return;
                 }
-
                 // populate children.
                 ShowMember((NodeId)reference.NodeId);
             }
@@ -611,8 +518,6 @@ namespace BathMonitorSystem
                 ClientUtils.HandleException(Text, exception);
             }
         }
-
-
         private void ClearDataGridViewRows(int index)
         {
             for (int i = dataGridView1.Rows.Count - 1; i >= index; i--)
@@ -623,11 +528,8 @@ namespace BathMonitorSystem
                 }
             }
         }
-
         #endregion
-
         #region 点击树节点后在数据表显示
-
         /// <summary>
         /// 点击了节点名称前的内容进行复制
         /// </summary>
@@ -642,9 +544,7 @@ namespace BathMonitorSystem
         }
         private async void ShowMember(NodeId sourceId)
         {
-
             textBox_nodeId.Text = sourceId.ToString();
-
             // dataGridView1.Rows.Clear();
             int index = 0;
             ReferenceDescriptionCollection references;
@@ -660,8 +560,6 @@ namespace BathMonitorSystem
                 ClientUtils.HandleException(Text, exception);
                 return;
             }
-
-
             if (references?.Count > 0)
             {
                 // 获取所有要读取的子节点
@@ -671,23 +569,18 @@ namespace BathMonitorSystem
                     ReferenceDescription target = references[ii];
                     nodeIds.Add((NodeId)target.NodeId);
                 }
-
                 DateTime dateTimeStart = DateTime.Now;
-
                 // 获取所有的值
                 DataValue[] dataValues = await Task.Run(() =>
                 {
                     return ReadOneNodeFiveAttributes(nodeIds);
                 });
-
                 label_time_spend.Text = (int)(DateTime.Now - dateTimeStart).TotalMilliseconds + " ms";
-
                 // 显示
                 for (int jj = 0; jj < dataValues.Length; jj += 5)
                 {
                     AddDataGridViewNewRow(dataValues, jj, index++, nodeIds[jj / 5]);
                 }
-
             }
             else
             {
@@ -696,7 +589,6 @@ namespace BathMonitorSystem
                 {
                     DateTime dateTimeStart = DateTime.Now;
                     DataValue dataValue = CommonMethods.opcUaClient.ReadNode(sourceId);
-
                     if (dataValue.WrappedValue.TypeInfo?.ValueRank == ValueRanks.OneDimension)
                     {
                         // 数组显示
@@ -715,12 +607,8 @@ namespace BathMonitorSystem
                     return;
                 }
             }
-
             ClearDataGridViewRows(index);
-
         }
-
-
         private void AddDataGridViewNewRow(DataValue[] dataValues, int startIndex, int index, NodeId nodeId)
         {
             // int index = dataGridView1.Rows.Add();
@@ -730,14 +618,11 @@ namespace BathMonitorSystem
             }
             DataGridViewRow dgvr = dataGridView1.Rows[index];
             dgvr.Tag = nodeId;
-
             if (dataValues[startIndex].WrappedValue.Value == null) return;
             NodeClass nodeclass = (NodeClass)dataValues[startIndex].WrappedValue.Value;
-
             dgvr.Cells[1].Value = dataValues[3 + startIndex].WrappedValue.Value;
             dgvr.Cells[5].Value = dataValues[4 + startIndex].WrappedValue.Value;
             dgvr.Cells[4].Value = GetDiscriptionFromAccessLevel(dataValues[2 + startIndex]);
-
             if (nodeclass == NodeClass.Object)
             {
                 dgvr.Cells[0].Value = Properties.Resources.ClassIcon;
@@ -753,7 +638,6 @@ namespace BathMonitorSystem
             else if (nodeclass == NodeClass.Variable)
             {
                 DataValue dataValue = dataValues[1 + startIndex];
-
                 if (dataValue.WrappedValue.TypeInfo != null)
                 {
                     dgvr.Cells[3].Value = dataValue.WrappedValue.TypeInfo.BuiltInType;
@@ -793,23 +677,18 @@ namespace BathMonitorSystem
                 dgvr.Cells[3].Value = nodeclass.ToString();
             }
         }
-
         private void AddDataGridViewArrayRow(NodeId nodeId, out int index)
         {
-
             DateTime dateTimeStart = DateTime.Now;
             DataValue[] dataValues = ReadOneNodeFiveAttributes(new List<NodeId>() { nodeId });
             label_time_spend.Text = (int)(DateTime.Now - dateTimeStart).TotalMilliseconds + " ms";
-
             DataValue dataValue = dataValues[1];
-
             if (dataValue.WrappedValue.TypeInfo?.ValueRank == ValueRanks.OneDimension)
             {
                 string access = GetDiscriptionFromAccessLevel(dataValues[2]);
                 BuiltInType type = dataValue.WrappedValue.TypeInfo.BuiltInType;
                 object des = dataValues[4].Value ?? "";
                 object dis = dataValues[3].Value ?? type;
-
                 Array array = dataValue.Value as Array;
                 int i = 0;
                 foreach (object obj in array)
@@ -818,11 +697,8 @@ namespace BathMonitorSystem
                     {
                         dataGridView1.Rows.Add();
                     }
-
                     DataGridViewRow dgvr = dataGridView1.Rows[i];
-
                     dgvr.Tag = null;
-
                     dgvr.Cells[0].Value = Properties.Resources.Enum_582;
                     dgvr.Cells[1].Value = $"{dis} [{i++}]";
                     dgvr.Cells[2].Value = obj;
@@ -837,7 +713,6 @@ namespace BathMonitorSystem
                 index = 0;
             }
         }
-
         private string GetDiscriptionFromAccessLevel(DataValue value)
         {
             if (value.WrappedValue.Value != null)
@@ -862,23 +737,14 @@ namespace BathMonitorSystem
                 return "null";
             }
         }
-
-
-
         #endregion
-
         #region 订阅刷新块
-
-
         private List<string> subNodeIds = new List<string>();
         private bool isSingleValueSub = false;
-
         private void RemoveAllSubscript()
         {
             CommonMethods.opcUaClient?.RemoveAllSubscription();
         }
-
-
         private void SubCallBack(string key, MonitoredItem monitoredItem, MonitoredItemNotificationEventArgs eventArgs)
         {
             if (InvokeRequired)
@@ -886,11 +752,8 @@ namespace BathMonitorSystem
                 Invoke(new Action<string, MonitoredItem, MonitoredItemNotificationEventArgs>(SubCallBack), key, monitoredItem, eventArgs);
                 return;
             }
-
-
             MonitoredItemNotification notification = eventArgs.NotificationValue as MonitoredItemNotification;
             string nodeId = monitoredItem.StartNodeId.ToString();
-
             int index = subNodeIds.IndexOf(nodeId);
             if (index >= 0)
             {
@@ -918,8 +781,6 @@ namespace BathMonitorSystem
                 }
             }
         }
-
-
         private async void button2_Click(object sender, EventArgs e)
         {
             if (CommonMethods.opcUaClient != null)
@@ -930,8 +791,6 @@ namespace BathMonitorSystem
                     button2.BackColor = Color.LimeGreen;
                     // 判断当前的选择
                    // if (string.IsNullOrEmpty(textBox_nodeId.Text)) return;
-
-
                     ReferenceDescriptionCollection references;
                     try
                     {
@@ -945,7 +804,6 @@ namespace BathMonitorSystem
                         ClientUtils.HandleException(Text, exception);
                         return;
                     }
-
                     subNodeIds = new List<string>();
                     if (references?.Count > 0)
                     {
@@ -963,7 +821,6 @@ namespace BathMonitorSystem
                         // 子节点没有数据的情况
                         subNodeIds.Add(textBox_nodeId.Text);
                     }
-
                     CommonMethods.opcUaClient.AddSubscription("subTest", subNodeIds.ToArray(), SubCallBack);
                 }
                 else
@@ -972,11 +829,8 @@ namespace BathMonitorSystem
                 }
             }
         }
-
         #endregion
-
         #region 点击了表格修改数据
-
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value is BuiltInType builtInType)
@@ -994,7 +848,6 @@ namespace BathMonitorSystem
                         MessageBox.Show("Invalid Input Value");
                         return;
                     }
-
                     if (!CommonMethods.opcUaClient.WriteNode(nodeId.ToString(), value))
                     {
                         MessageBox.Show("Failed to write value");
@@ -1004,12 +857,10 @@ namespace BathMonitorSystem
                 {
                     // 点击了数组修改
                     IList<string> list = new List<string>();
-
                     for (int jj = 0; jj < dataGridView1.RowCount; jj++)
                     {
                         list.Add(dataGridView1.Rows[jj].Cells[e.ColumnIndex].Value.ToString());
                     }
-
                     try
                     {
                         value = GetArrayValueFromString(list, builtInType);
@@ -1019,7 +870,6 @@ namespace BathMonitorSystem
                         MessageBox.Show("Invalid Input Value: " + ex.Message);
                         return;
                     }
-
                     if (!CommonMethods.opcUaClient.WriteNode(textBox_nodeId.Text, value))
                     {
                         MessageBox.Show("Failed to write value");
@@ -1030,12 +880,10 @@ namespace BathMonitorSystem
             {
                 MessageBox.Show("Invalid data type");
             }
-
             //MessageBox.Show(
             //    "Type:" + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.GetType().ToString() + Environment.NewLine +
             //    "Value:" + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
         }
-
         private dynamic GetValueFromString(string value, BuiltInType builtInType)
         {
             switch (builtInType)
@@ -1111,8 +959,6 @@ namespace BathMonitorSystem
                 default: throw new Exception("Not supported data type");
             }
         }
-
-
         private dynamic GetArrayValueFromString(IList<string> values, BuiltInType builtInType)
         {
             switch (builtInType)
@@ -1263,7 +1109,6 @@ namespace BathMonitorSystem
                 default: throw new Exception("Not supported data type");
             }
         }
-
         private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value is BuiltInType builtInType)
@@ -1288,7 +1133,6 @@ namespace BathMonitorSystem
                     builtInType == BuiltInType.UInteger
                     )
                 {
-
                 }
                 else
                 {
@@ -1303,22 +1147,12 @@ namespace BathMonitorSystem
                 MessageBox.Show("Not support the Type of modify value!");
                 return;
             }
-
-
             if (!dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value.ToString().Contains("Write"))
             {
                 e.Cancel = true;
                 MessageBox.Show("Not support the access of modify value!");
             }
         }
-
-
-
-
-
         #endregion
-
     }
-
-
 }

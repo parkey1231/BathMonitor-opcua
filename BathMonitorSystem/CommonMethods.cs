@@ -14,6 +14,5 @@ namespace BathMonitorSystem
         public static OpcUaClient opcUaClient;
         public static string UserName;
         
-
     }
 }

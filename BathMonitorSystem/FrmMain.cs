@@ -12,25 +12,20 @@ using System.Threading;
 using Opc;
 using Opc.Ua;
 using OpcUaHelper;
-
 namespace BathMonitorSystem
 {
     //第一步：创建委托
     //public delegate byte[] CommDelegate(ModTCP modTCP);
-
     public partial class FrmMain : Form
     {
-
       //  CommDelegate MyDelegate;
         ModTCP[] objModbusArray = new ModTCP[8];
-
         public FrmMain()
         {
             InitializeComponent();
             //this.Load += FrmMain_Load;
             //第三步：绑定方法
           //  MyDelegate += GetData;
-
             btnView_Click(null, null);
             labCurrentUser.Text = CommonMethods.UserName;
             //for (int i = 0; i < objModbusArray.Length; i++)
@@ -43,22 +38,15 @@ namespace BathMonitorSystem
             //        MyDelegate.BeginInvoke(objModbusArray[i], MyAsyncCallback, objModbusArray[i]);
             //        CommonMethods.CurrentModbusList[i + 1] = objModbusArray[i];
             //    }
-
             //}
             InitOpcUaClient();
             timerSysterm.Start();
-
         }
-
         private async void InitOpcUaClient()
         {
             CommonMethods.opcUaClient = new OpcUaClient();
             await CommonMethods.opcUaClient.ConnectServer("opc.tcp://118.24.36.220:62547/DataAccessServer");
         }
-
-
-
-
         private enum ButtonName
         {
             View,
@@ -70,19 +58,13 @@ namespace BathMonitorSystem
             SysMaintenance,
             OpcView,
             Exit
-
         }
-
         //private void FrmMain_Load(object sender, EventArgs e)
         //{
         //    for (int i = 0; i < modbusArray.Length; i++)
         //    {
-
-
         //    }
-
         //}
-
         //第五步：编写回调函数
         //private void MyAsyncCallback(IAsyncResult asyncResult)
         //{
@@ -97,22 +79,10 @@ namespace BathMonitorSystem
         //    {
         //        CommonMethods.CurrentValue[index] = flowData;
         //    }
-
         //    //第六步：继续激活委托
         //    MyDelegate.BeginInvoke(objModbus, MyAsyncCallback, objModbus);
         //}
-
-
-
-
-
         List<ModTCP> modbusList = new List<ModTCP>();
-
-
-
-
-
-
         //第二步：编写委托方法
         private byte[] GetData(ModTCP modTCP)
         {
@@ -122,11 +92,9 @@ namespace BathMonitorSystem
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
-
         private FlowData Analyse(byte[] byteArray)
         {
             if (byteArray != null && byteArray.Length == 16)
@@ -143,7 +111,6 @@ namespace BathMonitorSystem
                 return null;
             }
         }
-
         /// <summary>
         /// 用指针方式强制将byte数组转为浮点数
         /// </summary>
@@ -165,7 +132,6 @@ namespace BathMonitorSystem
             }
             return fValue;
         }
-
         /// <summary>
         /// 打开窗体
         /// </summary>
@@ -204,8 +170,6 @@ namespace BathMonitorSystem
             }
             return res;
         }
-
-
         private void btnView_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmView"))
@@ -213,7 +177,6 @@ namespace BathMonitorSystem
                 OpenWindow(new FrmView());
             }
             BackColorSet(ButtonName.View);
-
         }
         /// <summary>
         /// Exit Button
@@ -225,17 +188,14 @@ namespace BathMonitorSystem
             CommonMethods.opcUaClient.Disconnect();
             Application.Exit();
         }
-
         private void btnCtrlProcess_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmProcess"))
             {
                 OpenWindow(new FrmProcess());
-
             }
             BackColorSet(ButtonName.CtrlProcess);
         }
-
         private void btnParaSet_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmParaSet"))
@@ -244,7 +204,6 @@ namespace BathMonitorSystem
             }
             BackColorSet(ButtonName.ParaSet);
         }
-
         private void btnAlarm_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmAlarm"))
@@ -253,7 +212,6 @@ namespace BathMonitorSystem
             }
             BackColorSet(ButtonName.Alarm);
         }
-
         private void btnTrend_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmTrend"))
@@ -262,7 +220,6 @@ namespace BathMonitorSystem
             }
             BackColorSet(ButtonName.Tend);
         }
-
         private void btnReport_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmReport"))
@@ -271,7 +228,6 @@ namespace BathMonitorSystem
             }
             BackColorSet(ButtonName.Report);
         }
-
         private void btnSysMaintenance_Click(object sender, EventArgs e)
         {
             if (CloseWindow("FrmSysMaint"))
@@ -299,7 +255,6 @@ namespace BathMonitorSystem
             btnOPC.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnSysMaintenance.BackColor = Color.FromKnownColor(KnownColor.Highlight);
             btnExit.BackColor = Color.FromKnownColor(KnownColor.Highlight);
-
             switch (index)
             {
                 case ButtonName.View: btnView.BackColor = Color.FromKnownColor(KnownColor.Green); break;
@@ -311,12 +266,10 @@ namespace BathMonitorSystem
                 case ButtonName.OpcView: btnOPC.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.SysMaintenance: btnSysMaintenance.BackColor = Color.FromKnownColor(KnownColor.Green); break;
                 case ButtonName.Exit: btnExit.BackColor = Color.FromKnownColor(KnownColor.Green); break;
-
                 default:
                     break;
             }
         }
-
         private void timerSysterm_Tick(object sender, EventArgs e)
         {
             labCurrentTime.Text = DateTime.Now.ToString();

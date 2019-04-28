@@ -51,7 +51,6 @@
             this.Text = "FrmReport";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

@@ -51,7 +51,6 @@
             this.Text = "FrmTrend";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

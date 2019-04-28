@@ -60,7 +60,6 @@
             this.Text = "FrmParaSet";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
