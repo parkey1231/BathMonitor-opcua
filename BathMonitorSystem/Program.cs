@@ -16,8 +16,6 @@ namespace BathMonitorSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new FrmMain());
-            //Application.Run( new FrmAdminLogin( ) );
             FrmAdminLogin frmAdminLogin = new FrmAdminLogin( );
             frmAdminLogin.ShowDialog( );
             if (frmAdminLogin.DialogResult == DialogResult.OK)
