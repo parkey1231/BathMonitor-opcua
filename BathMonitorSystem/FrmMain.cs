@@ -274,5 +274,10 @@ namespace BathMonitorSystem
         {
             labCurrentTime.Text = DateTime.Now.ToString();
         }
+
+        private void cboxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

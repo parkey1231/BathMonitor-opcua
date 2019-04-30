@@ -383,7 +383,9 @@
       <Name>MyControl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Lang\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="img\Activity_16xLG.png" />
     <Content Include="img\brackets_Square_16xMD.png" />

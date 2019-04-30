@@ -18,7 +18,7 @@ namespace BathMonitorSystem
         {
             InitializeComponent( );
             InitLoginUser( );
-           
+
         }
         /// <summary>
         /// 用户登陆初始化信息
@@ -42,7 +42,7 @@ namespace BathMonitorSystem
             xmlDoc.AppendChild(xmlElem);
             root = xmlDoc.SelectSingleNode("Systerm");//查找<Systerm>
             XmlElement users = xmlDoc.CreateElement("users");
-            for (int i = 0; i < 2; i++)
+            for(int i = 0; i < 2; i++)
             {
                 userList.Add(xmlDoc.CreateElement("user"));
                 userNameList.Add(xmlDoc.CreateElement("username"));
@@ -52,13 +52,13 @@ namespace BathMonitorSystem
                 users.AppendChild(userList[i]);//添加到<users>节点中
             }
             //添加用户1的信息
-            userList[0].SetAttribute("用户权限", "管理员");//设置该节点属性
-            userList[0].SetAttribute("用户等级", "4");//设置该节点属性
+            userList[0].SetAttribute("UserPermission", "Administrator");//设置该节点属性
+            userList[0].SetAttribute("UserLever", "4");//设置该节点属性
             userNameList[0].InnerText = "Admin";
             userpwdList[0].InnerText = "123";
             //添加用户2的信息
-            userList[1].SetAttribute("用户权限", "用户");//设置该节点属性
-            userList[1].SetAttribute("用户等级", "1");//设置该节点属性
+            userList[1].SetAttribute("UserPermission", "User");//设置该节点属性
+            userList[1].SetAttribute("UserLever", "1");//设置该节点属性
             userNameList[1].InnerText = "Truking";
             userpwdList[1].InnerText = "312";
             root.AppendChild(users);//添加到<Systerm>节点中  
@@ -72,7 +72,8 @@ namespace BathMonitorSystem
         {
             string userName = txtUserName.Text;
             string userPassword = txtUserPassword.Text;
-            if (isValidUserName(userName) == false)
+           
+            if(isValidUserName(userName) == false || false)
             {
                 MessageBox.Show("用户名不能为空", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtUserName.Text = "";
@@ -87,13 +88,13 @@ namespace BathMonitorSystem
         {
             //读取UserInfo.xml检测user是否存在
             XDocument userInfo = XDocument.Load(@"C:\Users\Parkey\Desktop\UserInfo.xml");
-            var res = from a in userInfo.Element("Systerm").Element("users").Elements( ) where a.Element("username").Value.ToString( ) == txtUserName.Text select a.Element("pwd").Value;
-            if (res.Count( ) > 0)
+            var res = from a in userInfo.Element("Systerm").Element("users").Elements( ) where a.Element("username").Value.ToString( ) == userName select a.Element("pwd").Value;
+            if(res.Count( ) > 0)
             {
                 CommonMethods.UserName = userName;
-                foreach (string password in res)
+                foreach(string password in res)
                 {
-                    if (password == pwd)
+                    if(password == pwd)
                     {
                         MessageBox.Show("登录成功！", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CommonMethods.UserName = userName;
@@ -120,7 +121,7 @@ namespace BathMonitorSystem
         }
         private void txtUserName_MouseClick(object sender, MouseEventArgs e)
         {
-            if (txtUserName.Text == "请输入用户名")
+            if(txtUserName.Text == "请输入用户名")
             {
                 txtUserName.Text = "";
             }
