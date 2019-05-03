@@ -55,14 +55,54 @@ namespace EventTest
             gm.delegate1 = ChineseGreeting;
             gm.GreetPeople("parkey", gm.delegate1);
             Console.WriteLine("-----------------------------------------");
-            gm.GreetPeople("dy");
-            gm.MakeGreet += ChineseGreeting;
-            gm.MakeGreet += EnglishGreeting;
+            GreetingManager greeting = new GreetingManager( );
+            greeting.MakeGreet += ChineseGreeting;
+            greeting.MakeGreet += EnglishGreeting;
+            greeting.GreetPeople("dy");
+
+            Console.WriteLine("-----------------------------------------");
+            //：事件应该由事件的发布者触发，而不应该由事件的客户端（客户程序）来触发
+            Publisher pub = new Publisher( );
+            Subcriber sub = new Subcriber( );
+            pub.NumberChanged += new NumberChangedEventHandler(sub.OnNumberChanged);
+            pub.DoSomething( );
+            //pub.NumberChanged(100);
+            
             Console.ReadLine( );
 
 
         }
+        // 定义委托
+        public delegate void NumberChangedEventHandler(int count);
+        //定义事件发布者
+        public class Publisher
+        {
+            private int count;
+            //public NumberChangedEventHandler NumberChanged; // 声明委托变量
+            public event NumberChangedEventHandler NumberChanged;        // 声明一个事件
+            public void DoSomething( )
+            {
+                //完成一些工作......
+                if(NumberChanged != null)
+                {
+                    count++;
+                    NumberChanged(count);
+                }
 
-        
+            }
+        }
+
+        //定义事件订阅
+        public class Subcriber
+        {
+            public void OnNumberChanged(int count)
+            {
+                Console.WriteLine("Subsciber no tified: count = {0}", count);
+            }
+        }
+
+
+
+
     }
 }
